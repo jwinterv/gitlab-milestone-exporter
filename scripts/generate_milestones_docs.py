@@ -17,6 +17,11 @@ import requests
 from datetime import datetime
 from pathlib import Path
 from slugify import slugify
+from dotenv import load_dotenv
+
+# Carrega variáveis do .env
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 # ==========================================================
 # CONFIGURAÇÃO
@@ -26,7 +31,7 @@ GITLAB_TOKEN = os.getenv("GITLAB_TOKEN")
 PROJECT_ID = os.getenv("GITLAB_PROJECT_ID")
 BASE_URL = os.getenv("GITLAB_BASE_URL", "https://gitlab.com/api/v4")
 
-DOCS_DIR = Path("docs/milestones")
+DOCS_DIR = Path("../docs/milestones")
 
 HEADERS = {
     "PRIVATE-TOKEN": GITLAB_TOKEN
