@@ -1,4 +1,4 @@
-# 📌 GitLab Milestones & Issues Exporter
+# 📌 GitLab Milestones & Issues Exporter (com Imagens)
 
 Este projeto tem como objetivo **exportar milestones e issues de um projeto GitLab para arquivos Markdown**, criando uma **documentação navegável local**, organizada por milestones e issues, ideal para uso no **VS Code**, estudo offline e versionamento.
 
@@ -8,11 +8,11 @@ O resultado final funciona como uma **wiki local sincronizada com o GitLab**.
 
 ## 🎯 Objetivos
 
-* **Exportação Completa:** Milestones, Issues e seus respectivos comentários.
-* **Gestão de Mídia:** Download automático de imagens anexadas.
-* **Limpeza de Markdown:** Remoção de metadados de redimensionamento do GitLab (ex: `{width=...}`).
-* **Estrutura Navegável:** Links relativos de "Anterior", "Próximo" e "Voltar" entre documentos.
-* **Portabilidade:** Documentação pronta para ser versionada ou convertida em site estático.
+- **Exportação Completa:** Milestones, Issues e seus respectivos comentários.
+- **Gestão de Mídia:** Download automático de imagens anexadas.
+- **Limpeza de Markdown:** Remoção de metadados de redimensionamento do GitLab (ex: `{width=...}`).
+- **Navegação Real:** Links diretos entre os `README.md` para transição imediata entre páginas no VS Code.
+- **Portabilidade:** Documentação pronta para ser versionada ou convertida em site estático.
 
 ---
 
@@ -22,16 +22,13 @@ O resultado final funciona como uma **wiki local sincronizada com o GitLab**.
 docs/
 └── nome-do-projeto/
     └── nome-da-milestone/
-        ├── README.md
+        ├── README.md              # Sumário com links diretos
         ├── images/                # Imagens da Milestone
         └── issue-123-titulo/
-            ├── README.md
-            └── images/            # Imagens específicas da Issue e comentários
+            ├── README.md          # Conteúdo da Issue com navegação
+            └── images/            # Imagens da Issue e comentários
 
 ```
-
-* **Milestone README:** Resumo, período, progresso e lista de issues.
-* **Issue README:** Status, autor, responsável, labels, descrição completa e histórico de comentários.
 
 ---
 
@@ -49,7 +46,7 @@ Crie um arquivo `.env` na raiz do projeto:
 
 ```env
 GITLAB_TOKEN=seu_token_pessoal_aqui
-GITLAB_BASE_URL=https://gitlab.com/api/v4
+GITLAB_BASE_URL=[https://gitlab.com/api/v4](https://gitlab.com/api/v4)
 
 ```
 
@@ -68,13 +65,13 @@ pip install -r requirements.txt
 
 ## ▶️ Como Executar
 
-1. Certifique-ce de que o `.env` está configurado.
+1. Certifique-se de que o `.env` está configurado.
 2. Execute o script:
+
 ```bash
 python generate_milestone_docs.py
 
 ```
-
 
 3. Informe o(s) **ID(s) do(s) projeto(s)** quando solicitado (ex: `123, 456`).
 4. A documentação será gerada na pasta `docs/`.
@@ -83,26 +80,35 @@ python generate_milestone_docs.py
 
 ## 🧭 Visualização no VS Code (Recomendado)
 
-Para uma experiência de wiki real, utilize o motor de renderização do VS Code:
+Para que a navegação funcione corretamente como uma Wiki, é altamente recomendado o uso de uma extensão dedicada:
 
-1. Abra qualquer arquivo `README.md` gerado.
+### 1. Extensão Necessária
+
+Instale a extensão **Markdown All in One** através do Marketplace do VS Code. Ela melhora significativamente o suporte a links relativos entre arquivos.
+
+### 2. Modo Preview
+
+A navegação (clicar no link e trocar de página) só ocorre dentro do modo de visualização renderizada:
+
+1. Abra o arquivo `README.md` principal da milestone ou de uma issue.
 2. Use o atalho `Ctrl + Shift + V` (Windows/Linux) ou `Cmd + Shift + V` (Mac).
-3. **Navegação:** Clique nos links das issues ou nos botões de navegação para saltar entre os arquivos.
+3. **Navegação:** No painel de Preview, clique nos links. O VS Code carregará o novo arquivo na mesma janela.
 
 ---
 
 ## 🛠️ Soluções Técnicas Aplicadas
 
 * **Download Blindado:** O script utiliza o endpoint `/projects/:id/uploads/...` da API para garantir que o token de acesso seja aceito, evitando redirecionamentos para tela de login.
-* **Regex Inteligente:** Identifica links de imagens mesmo com formatações complexas e limpa atributos de largura/altura que poluem o texto puro.
-* **Sanitização de Nomes:** Utiliza `python-slugify` para garantir que pastas e arquivos sejam compatíveis com todos os sistemas operacionais (evitando espaços e caracteres especiais).
+* **Regex Inteligente:** Identifica links de imagens e remove atributos extras que poluem o visual.
+* **Caminhos Relativos:** Todos os links apontam diretamente para arquivos `.md` específicos, permitindo navegação fluida dentro do Preview.
 
 ---
 
 ## 📈 Possíveis Melhorias Futuras
 
 * Implementar suporte ao **MkDocs** para gerar sites estáticos profissionais.
-* Exportação de anexo em PDF único.
+* Exportação para PDF consolidado.
 * Filtragem de issues por labels específicas.
+
 
 
