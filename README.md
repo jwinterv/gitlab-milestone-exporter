@@ -46,7 +46,8 @@ Crie um arquivo `.env` na raiz do projeto:
 
 ```env
 GITLAB_TOKEN=seu_token_pessoal_aqui
-GITLAB_BASE_URL=[https://gitlab.com/api/v4](https://gitlab.com/api/v4)
+GITLAB_BASE_URL=https://gitlab.com/api/v4
+GITLAB_PROJECT_IDS=123,456,789
 
 ```
 
@@ -65,16 +66,14 @@ pip install -r requirements.txt
 
 ## ▶️ Como Executar
 
-1. Certifique-se de que o `.env` está configurado.
+1. Certifique-se de que o `.env` está configurado corretamente. Lembre-se de colocar o ID dos projetos separados em vírgula, sem espaços.
 2. Execute o script:
 
 ```bash
 python generate_milestone_docs.py
 
 ```
-
-3. Informe o(s) **ID(s) do(s) projeto(s)** quando solicitado (ex: `123, 456`).
-4. A documentação será gerada na pasta `docs/`.
+3. A documentação será gerada na pasta `docs/`.
 
 ---
 
