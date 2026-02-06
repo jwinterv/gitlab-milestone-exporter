@@ -12,7 +12,7 @@ from slugify import slugify
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent
-load_dotenv(".env")
+load_dotenv(BASE_DIR / ".env")
 
 # ==========================================================
 # CONFIGURAÇÃO
@@ -20,6 +20,7 @@ load_dotenv(".env")
 
 GITLAB_TOKEN = os.getenv("GITLAB_TOKEN")
 API_URL = os.getenv("GITLAB_BASE_URL", "https://gitlab.com/api/v4").rstrip('/')
+PROJECT_IDS = os.getenv("GITLAB_PROJECT_IDS")
 
 DOCS_DIR = BASE_DIR / "docs"
 
@@ -28,7 +29,7 @@ HEADERS = {
 }
 
 if not GITLAB_TOKEN:
-    raise RuntimeError("Defina GITLAB_TOKEN como variável de ambiente.")
+    raise RuntimeError("Defina GITLAB_TOKEN E GITLAB_PROJECT_IDS como variáveis de ambiente.")
 
 DOCS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -175,8 +176,7 @@ def generate_issue_markdown(issue, notes, prev_issue, next_issue, project_id, is
 # ==========================================================
 
 def main():
-    raw = input("Informe os IDs dos projetos GitLab (separados por vírgula): ")
-    project_ids = [p.strip() for p in raw.split(",") if p.strip()]
+    project_ids = [p.strip() for p in PROJECT_IDS.split(",") if p.strip()]
 
     for project_id in project_ids:
         print(f"\n📦 Projeto {project_id}")
