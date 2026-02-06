@@ -2,6 +2,7 @@
 Variáveis de ambiente obrigatórias:
 - GITLAB_TOKEN
 - GITLAB_BASE_URL (default: https://gitlab.com/api/v4)
+- GITLAB_PROJECT_IDS (separados por vírgula, sem espaço)
 '''
 import os
 import requests
